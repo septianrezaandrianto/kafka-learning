@@ -17,23 +17,22 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Service;
 
 import com.learningkafka.constants.KafkaConstant;
-import com.learningkafka.entites.ProducerEntity;
+import com.learningkafka.services.entities.CategoryRequest;
 
 
 @Service
 public class KafkaProducerServiceImpl extends CommonService implements KafkaProducerService {
-
-	Logger logger = LoggerFactory.getLogger(KafkaProducerServiceImpl.class);
+	
 	@Value("${trial.topics}")
 	private String topicProducer;
 	
 	@Override
-	public Map<String, Object> exampleKafkaProducerSyncronous(ProducerEntity producerEntity) {
+	public Map<String, Object> exampleKafkaProducerSyncronous(CategoryRequest categoryRequest) {
 		Map<String, Object> result = new HashMap<>();
 
 		Properties properties = producerConfiguration();
-		KafkaProducer<String, ProducerEntity> kafkaProducer = new KafkaProducer<>(properties);
-		ProducerRecord<String, ProducerEntity> record = new ProducerRecord<>(topicProducer, producerEntity);
+		KafkaProducer<String, CategoryRequest> kafkaProducer = new KafkaProducer<>(properties);
+		ProducerRecord<String, CategoryRequest> record = new ProducerRecord<>(topicProducer, categoryRequest);
 
 		// try catch for handling if kafka server is down, etc
 		try {
@@ -52,12 +51,12 @@ public class KafkaProducerServiceImpl extends CommonService implements KafkaProd
 		return result;
 	}
 
-	public Map<String, Object> exampleKafkaProducerAsync(ProducerEntity producerEntity) {
+	public Map<String, Object> exampleKafkaProducerAsync(CategoryRequest categoryRequest) {
 		Map<String, Object> result = new HashMap<>();
 
 		Properties properties = producerConfiguration();
-		KafkaProducer<String, ProducerEntity> producer = new KafkaProducer<>(properties);
-		ProducerRecord<String, ProducerEntity> record = new ProducerRecord<>(topicProducer, producerEntity);
+		KafkaProducer<String, CategoryRequest> producer = new KafkaProducer<>(properties);
+		ProducerRecord<String, CategoryRequest> record = new ProducerRecord<>(topicProducer, categoryRequest);
 
 		// try catch for handling if kafka server is down, etc
 		try {
