@@ -36,7 +36,7 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 
 	// this service haven't work, I'm still RnD
 	@Override
-	public Map<String, Object> exampleKafkaConsumer(@Payload(required = false)String categoryRequest) {
+	public Map<String, Object> exampleKafkaConsumer(CategoryRequest categoryRequest) {
 		Map<String, Object> result = new HashMap<>();
 
 		Properties properties = consumerConfiguration();
@@ -45,17 +45,17 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 		try (KafkaConsumer<String, CategoryRequest> kafkaConsumer = new KafkaConsumer<>(properties)) {
 			kafkaConsumer.subscribe(Collections.singletonList(topicProducer));
 
-			ObjectMapper objectMapper = new ObjectMapper();
-			CategoryRequest cr = null;
-			
-			try {
-				cr = objectMapper.readValue(categoryRequest, CategoryRequest.class);
-			} catch (JsonProcessingException e) {
-				result.put(KafkaConstant.returnMessage, KafkaConstant.failed);
-				logger.error(KafkaConstant.failed, e);
-			}
-			
-			logger.error("{}{}{} CR : {}{}{} " +cr.toString());
+//			ObjectMapper objectMapper = new ObjectMapper();
+//			CategoryRequest cr = null;
+//			
+//			try {
+//				cr = objectMapper.readValue(categoryRequest, CategoryRequest.class);
+//			} catch (JsonProcessingException e) {
+//				result.put(KafkaConstant.returnMessage, KafkaConstant.failed);
+//				logger.error(KafkaConstant.failed, e);
+//			}
+//			
+//			logger.error("{}{}{} CR : {}{}{} " +cr.toString());
 			ConsumerRecords<String, CategoryRequest> recordList = kafkaConsumer.poll(Duration.ofMillis(100));
 			for (ConsumerRecord<String, CategoryRequest> record : recordList) {
 				CategoryRequest data = record.value();
@@ -69,7 +69,7 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 				categoryDaoService.saveOrUpdate(category);
 				
 				logger.error("{}{}{} SUCCESS SAVE  : {}{}{} " +category.toString());
-				
+					
 				result.put(KafkaConstant.returnMessage, KafkaConstant.successConsume);
 				logger.info(KafkaConstant.partitionLogger, record.partition());
 				logger.info(KafkaConstant.offsetLogger, record.offset());
@@ -82,18 +82,9 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 	
 	@Override
 	@KafkaListener(topics =  "${trial.topics}", groupId = KafkaConstant.groupId) 
-	public void exampleKafkaConsumerUsingKafkaListener(String request) {
+	public Map<String, Object> exampleKafkaConsumerUsingKafkaListener(CategoryRequest data) {
 		Map<String, Object> result = new HashMap<>();
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		CategoryRequest data = null;
-		try {
-			data = objectMapper.readValue(request, CategoryRequest.class);
-		} catch (Exception e) {
-			result.put(KafkaConstant.returnMessage, KafkaConstant.failed);
-			logger.error(KafkaConstant.failed, e);
-		}
-		
+			
 		Category category = new Category();
 		category.setCategoryName(data.getCategoryName());
 		category.setCreatedBy(data.getCreatedBy());
@@ -101,8 +92,9 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 		category.setIsDeleted(false);
 		categoryDaoService.saveOrUpdate(category);
 		
+		logger.error("{}{}{} SUCCESS SAVE  : {}{}{} " +category.toString());
 		result.put(KafkaConstant.returnMessage, KafkaConstant.successConsume);
-	//	return result;
+		return result;
 	}
 	
 }

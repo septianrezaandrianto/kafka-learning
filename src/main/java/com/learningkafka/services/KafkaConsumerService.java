@@ -8,6 +8,6 @@ import com.learningkafka.services.entities.CategoryRequest;
 
 public interface KafkaConsumerService {
 
-	public Map<String, Object> exampleKafkaConsumer(String categoryRequest);
-	public void exampleKafkaConsumerUsingKafkaListener(String categoryRequest);
+	public Map<String, Object> exampleKafkaConsumer(CategoryRequest categoryRequest);
+	public Map<String, Object> exampleKafkaConsumerUsingKafkaListener(CategoryRequest categoryRequest);
 }

@@ -38,14 +38,14 @@ public class KafkaController {
 	}
 
 	@PostMapping("/consumer")
-	public Map<String, Object> consumerController(@RequestBody String categoryRequest) {
+	public Map<String, Object> consumerController(@RequestBody CategoryRequest categoryRequest) {
 		Map<String, Object> result= kafkaConsumerService.exampleKafkaConsumer(categoryRequest);
 		return result;
 	}
 	
 	@PostMapping("/consumerListener")
-	public String consumerListenerController(String categoryRequest) {
-		kafkaConsumerService.exampleKafkaConsumerUsingKafkaListener(categoryRequest);
-		return KafkaConstant.successConsume;
+	public Map<String, Object> consumerListenerController(@RequestBody CategoryRequest categoryRequest) {
+		Map<String, Object> result= kafkaConsumerService.exampleKafkaConsumerUsingKafkaListener(categoryRequest);
+		return result;
 	}
 }

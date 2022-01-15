@@ -33,7 +33,7 @@ public class CommonService {
 		properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true); // for give information how many the app commit the last data
-		properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1000);
+//		properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1000);
 		properties.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaConstant.groupId);
 		return properties;
 	}

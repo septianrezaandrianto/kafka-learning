@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "bd9906bb-41ce-47cc-a6cf-d901a7cee41c",
+		"name": "Kafka-Learning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Producer Syncronous",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"19\",\n    \"status\": \"Testing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1994/kafka/producerSyncronous",
+					"host": [
+						"localhost"
+					],
+					"port": "1994",
+					"path": [
+						"kafka",
+						"producerSyncronous"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"category_name\": \"Deterjen\",\"created_by\": 1,\"last_modified_by\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1994/kafka/consumer",
+					"host": [
+						"localhost"
+					],
+					"port": "1994",
+					"path": [
+						"kafka",
+						"consumer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Producer Async",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"category_name\": \"Baju\",\"created_by\": 1,\"last_modified_by\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1994/kafka/producerAsync",
+					"host": [
+						"localhost"
+					],
+					"port": "1994",
+					"path": [
+						"kafka",
+						"producerAsync"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumer Listener",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"category_name\": \"Deterjen\",\"created_by\": 1,\"last_modified_by\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1994/kafka/consumerListener",
+					"host": [
+						"localhost"
+					],
+					"port": "1994",
+					"path": [
+						"kafka",
+						"consumerListener"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
