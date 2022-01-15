@@ -17,7 +17,7 @@ import com.learningkafka.entites.ProducerEntity;
 @Service
 public class KafkaConsumerServiceImpl extends CommonService implements KafkaConsumerService {
 	
-	@Value("${example.topic.again}")
+	@Value("${trial.topics}")
 	private String topicProducer;
 	
 	@Override

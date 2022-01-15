@@ -23,14 +23,18 @@ public class KafkaProducerController {
 	@Autowired
 	private KafkaConsumerService kafkaConsumerService;
 	
-	@PostMapping("/producer")
-	public Map<String, Object> producerController(@RequestBody ProducerEntity entity) {
-		Map<String, Object> result = new HashMap<>();
-		kafkaProducerService.exampleKafkaProducer(entity);
-		result.put("message", "Success");
+	@PostMapping("/producerSyncronous")
+	public Map<String, Object> producerSyncronousController(@RequestBody ProducerEntity entity) {
+		Map<String, Object> result = kafkaProducerService.exampleKafkaProducerSyncronous(entity);
 		return result;
 	}
-	
+
+	@PostMapping("/producerAsync")
+	public Map<String, Object> producerAsyncController(@RequestBody ProducerEntity entity) {
+		Map<String, Object> result = kafkaProducerService.exampleKafkaProducerAsync(entity);
+		return result;
+	}
+
 	@GetMapping("/consumer")
 	public Map<String, Object> consumerController() {
 		Map<String, Object> result = new HashMap<>();
