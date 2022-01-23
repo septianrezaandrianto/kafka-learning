@@ -23,6 +23,8 @@ https://kafka.apache.org/quickstart
 
 Documentation : https://www.confluent.io/installation
 
+Run schema : http://localhost:8081
+
 Start confluent service : confluent local services start
 
 Stop confluent service : confluent local services stop
