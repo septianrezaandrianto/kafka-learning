@@ -6,6 +6,113 @@
 	},
 	"item": [
 		{
+			"name": "Avro",
+			"item": [
+				{
+					"name": "Avro Producer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryName\": \"Kertas\",\n    \"createdBy\": 2,\n    \"lastModifiedBy\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1994/kafka/avroProducer",
+							"host": [
+								"localhost"
+							],
+							"port": "1994",
+							"path": [
+								"kafka",
+								"avroProducer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Avro Consumer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:1994/kafka/avroConsumer",
+							"host": [
+								"localhost"
+							],
+							"port": "1994",
+							"path": [
+								"kafka",
+								"avroConsumer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Avro Producer Generic Record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryName\": \"Kertas\",\n    \"createdBy\": 2,\n    \"lastModifiedBy\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1994/kafka/genericRecord/avroProducer",
+							"host": [
+								"localhost"
+							],
+							"port": "1994",
+							"path": [
+								"kafka",
+								"genericRecord",
+								"avroProducer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Avro Consumer Generic Record",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:1994/kafka/genericRecord/avroConsumer",
+							"host": [
+								"localhost"
+							],
+							"port": "1994",
+							"path": [
+								"kafka",
+								"genericRecord",
+								"avroConsumer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Producer Syncronous",
 			"request": {
 				"method": "POST",
@@ -36,17 +143,8 @@
 		{
 			"name": "Consumer",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"category_name\": \"Deterjen\",\"created_by\": 1,\"last_modified_by\": 1}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "localhost:1994/kafka/consumer",
 					"host": [
