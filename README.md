@@ -16,3 +16,10 @@ mvn spring-boot:run
 
 #documentation :
 https://kafka.apache.org/quickstart
+
+
+-Kafka Avro
+Documentation : https://www.confluent.io/installation 
+Start confluent service : confluent local services start
+Stop confluent service : confluent local services stop
+
