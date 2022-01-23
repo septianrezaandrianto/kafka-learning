@@ -119,7 +119,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"19\",\n    \"status\": \"Testing\"\n}",
+					"raw": "{\n    \"category_name\": \"Baju\",\n    \"created_by\": 1,\n    \"last_modified_by\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -143,14 +143,23 @@
 		{
 			"name": "Consumer",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"category_name\": \"Sendal\",\"created_by\": 2,\"last_modified_by\": 2}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:1994/kafka/consumer",
+					"raw": "localhost:1995/kafka/consumer",
 					"host": [
 						"localhost"
 					],
-					"port": "1994",
+					"port": "1995",
 					"path": [
 						"kafka",
 						"consumer"
@@ -194,7 +203,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"category_name\": \"Deterjen\",\"created_by\": 1,\"last_modified_by\": 1}",
+					"raw": "{\"category_name\": \"Kaos\",\"created_by\": 2,\"last_modified_by\": 2}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -202,11 +211,11 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:1994/kafka/consumerListener",
+					"raw": "localhost:1995/kafka/consumerListener",
 					"host": [
 						"localhost"
 					],
-					"port": "1994",
+					"port": "1995",
 					"path": [
 						"kafka",
 						"consumerListener"
