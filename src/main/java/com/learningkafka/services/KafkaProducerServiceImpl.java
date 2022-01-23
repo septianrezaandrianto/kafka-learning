@@ -4,16 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.serialization.StringSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Service;
 
 import com.learningkafka.constants.KafkaConstant;
@@ -37,13 +31,13 @@ public class KafkaProducerServiceImpl extends CommonService implements KafkaProd
 		// try catch for handling if kafka server is down, etc
 		try {
 			RecordMetadata recordMetadata = kafkaProducer.send(record).get();
-			result.put(KafkaConstant.returnMessage, KafkaConstant.success);
-			logger.info( KafkaConstant.partitionLogger + recordMetadata.partition());
-			logger.info( KafkaConstant.offsetLogger + recordMetadata.offset());
+			result.put(KafkaConstant.RETURN_MESSAGE, KafkaConstant.SUCCESS);
+			logger.info( KafkaConstant.PARTITION_LOGGER + recordMetadata.partition());
+			logger.info( KafkaConstant.OFFSET_LOGGER + recordMetadata.offset());
 		}
 		catch (Exception e) {
-			result.put(KafkaConstant.returnMessage, KafkaConstant.failed);
-			logger.info(KafkaConstant.failed , e);
+			result.put(KafkaConstant.RETURN_MESSAGE, KafkaConstant.FAILED);
+			logger.info(KafkaConstant.FAILED , e);
 		}
 		finally {
 			kafkaProducer.close();
@@ -61,10 +55,10 @@ public class KafkaProducerServiceImpl extends CommonService implements KafkaProd
 		// try catch for handling if kafka server is down, etc
 		try {
 			producer.send(record, new OrderCallback());
-			result.put(KafkaConstant.returnMessage, KafkaConstant.success);
+			result.put(KafkaConstant.RETURN_MESSAGE, KafkaConstant.SUCCESS);
 		}
 		catch (Exception e) {
-			result.put(KafkaConstant.returnMessage, KafkaConstant.failed);
+			result.put(KafkaConstant.RETURN_MESSAGE, KafkaConstant.FAILED);
 		}
 		finally {
 			producer.close();

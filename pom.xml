@@ -19,6 +19,22 @@
 		<!-- <slf4j.version>1.6.6</slf4j.version>
 		<logback.version>1.0.7</logback.version> -->
 	</properties>
+	
+	<!-- kafka avro repository-->
+	<repositories>
+		<repository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -74,6 +90,19 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.13.1</version>
 		</dependency>
+		
+		<!-- kafka avro depedency-->
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>1.10.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-avro-serializer</artifactId>
+			<version>6.2.0</version>
+		</dependency>
+
 		<!-- library for logger	-->
 		<!-- <dependency>
 			<groupId>org.slf4j</groupId>
@@ -112,6 +141,24 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro-maven-plugin</artifactId>
+			<version>1.10.2</version>
+			<executions>
+				<execution>
+					<phase>generate-sources</phase>
+					<goals>
+						<goal>schema</goal>
+					</goals>
+					<configuration>
+						<sourceDirectory>${project.basedir}/src/main/resources/</sourceDirectory>
+						<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
 		</plugins>
 	</build>
 

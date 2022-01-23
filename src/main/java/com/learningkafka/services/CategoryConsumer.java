@@ -21,7 +21,7 @@ public class CategoryConsumer implements Deserializer<CategoryRequest> {
 		try {
 			request = objectMapper.readValue(data, CategoryRequest.class);
 		} catch (IOException e) {
-			logger.error(KafkaConstant.failed, e);
+			logger.error(KafkaConstant.FAILED, e);
 		}
 		
 		return request;

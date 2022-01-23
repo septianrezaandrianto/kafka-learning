@@ -2,14 +2,14 @@ package com.learningkafka.constants;
 
 public interface KafkaConstant {
 
-	final String kafkaBootstrapServer = "localhost:9092";
-	final String groupId = "trial.group.dev";
+	final String KAFKA_BOOTSTRAP_SERVER = "localhost:9092";
+	final String GROUP_ID = "trial.group.dev";
 
-	final String returnMessage = "message";
-	final String returnData = "data";
-	final String success = "Send successfully";
-	final String failed = "Failed, something happend!";
-	final String partitionLogger = "Partision {}{} : ";
-	final String offsetLogger = "Offset {}{} : ";
-	final String successConsume = "Consume successfully";
+	final String RETURN_MESSAGE = "message";
+	final String RETURN_DATA = "data";
+	final String SUCCESS = "Send successfully";
+	final String FAILED = "Failed, something happend!";
+	final String PARTITION_LOGGER = "Partision {}{} : ";
+	final String OFFSET_LOGGER = "Offset {}{} : ";
+	final String SUCCESS_CONSUME = "Consume successfully";
 }

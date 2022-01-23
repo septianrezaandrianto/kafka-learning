@@ -1,0 +1,10 @@
+{
+"namespace" : "com.learningkafka.services.avro",
+"type" : "record",
+"name" : "Category",
+"fields" : [
+	{"name" : "categoryName", "type" : "string"},
+	{"name" : "createdBy", "type" : "long"},
+	{"name" : "lastModifiedBy", "type" : "long"}
+]
+}

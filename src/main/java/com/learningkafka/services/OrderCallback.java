@@ -12,11 +12,11 @@ public class OrderCallback implements Callback {
 
     @Override
     public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-        logger.info( KafkaConstant.partitionLogger + recordMetadata.partition());
-        logger.info( KafkaConstant.offsetLogger + recordMetadata.offset());
+        logger.info( KafkaConstant.PARTITION_LOGGER + recordMetadata.partition());
+        logger.info( KafkaConstant.OFFSET_LOGGER + recordMetadata.offset());
 
         if (e != null) {
-            logger.info(KafkaConstant.failed , e);
+            logger.info(KafkaConstant.FAILED , e);
         }
     }
 }

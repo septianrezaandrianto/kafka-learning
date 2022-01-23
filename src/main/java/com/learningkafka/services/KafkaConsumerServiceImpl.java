@@ -1,8 +1,6 @@
 package com.learningkafka.services;
 
-import java.io.IOException;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +12,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learningkafka.constants.KafkaConstant;
 import com.learningkafka.persistence.entities.Category;
 import com.learningkafka.persistence.services.CategoryDaoService;
@@ -42,8 +37,8 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 		Properties properties = consumerConfiguration();
 		logger.error("{}{}{} PROPERTIES : {}{}{} " + properties);
 		
-		try (KafkaConsumer<String, CategoryRequest> kafkaConsumer = new KafkaConsumer<>(properties)) {
-			kafkaConsumer.subscribe(Collections.singletonList(topicProducer));
+		KafkaConsumer<String, CategoryRequest> kafkaConsumer = new KafkaConsumer<>(properties);
+		kafkaConsumer.subscribe(Collections.singletonList(topicProducer));
 
 //			ObjectMapper objectMapper = new ObjectMapper();
 //			CategoryRequest cr = null;
@@ -56,32 +51,37 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 //			}
 //			
 //			logger.error("{}{}{} CR : {}{}{} " +cr.toString());
-			ConsumerRecords<String, CategoryRequest> recordList = kafkaConsumer.poll(Duration.ofMillis(100));
-			for (ConsumerRecord<String, CategoryRequest> record : recordList) {
-				CategoryRequest data = record.value();
-				logger.error("{}{}{} DATA : {}{}{} " +data);	
-				// set value for saving to db
-				Category category = new Category();
-				category.setCategoryName(data.getCategoryName());
-				category.setCreatedBy(data.getCreatedBy());
-				category.setLastModifiedBy(data.getLastModifiedBy());
-				category.setIsDeleted(false);
-				categoryDaoService.saveOrUpdate(category);
-				
-				logger.error("{}{}{} SUCCESS SAVE  : {}{}{} " +category.toString());
+		try {
+			while(true) {
+				ConsumerRecords<String, CategoryRequest> recordList = kafkaConsumer.poll(Duration.ofMillis(100));
+				for (ConsumerRecord<String, CategoryRequest> record : recordList) {
+					CategoryRequest data = record.value();
+					logger.error("{}{}{} DATA : {}{}{} " +data);	
+					// set value for saving to db
+					Category category = new Category();
+					category.setCategoryName(data.getCategoryName());
+					category.setCreatedBy(data.getCreatedBy());
+					category.setLastModifiedBy(data.getLastModifiedBy());
+					category.setIsDeleted(false);
+					categoryDaoService.saveOrUpdate(category);
 					
-				result.put(KafkaConstant.returnMessage, KafkaConstant.successConsume);
-				logger.info(KafkaConstant.partitionLogger, record.partition());
-				logger.info(KafkaConstant.offsetLogger, record.offset());
+					logger.error("{}{}{} SUCCESS SAVE  : {}{}{} " +category.toString());
+						
+					result.put(KafkaConstant.RETURN_MESSAGE, KafkaConstant.SUCCESS_CONSUME);
+					logger.info(KafkaConstant.PARTITION_LOGGER, record.partition());
+					logger.info(KafkaConstant.OFFSET_LOGGER, record.offset());
+				}
+				return result;
 			}
+		}
+		finally {
 			kafkaConsumer.close();
 		}
-		return result;
 	}
 	// this service haven't work, I'm still RnD
 	
 	@Override
-	@KafkaListener(topics =  "${trial.topics}", groupId = KafkaConstant.groupId) 
+	@KafkaListener(topics =  "${trial.topics}", groupId = KafkaConstant.GROUP_ID) 
 	public Map<String, Object> exampleKafkaConsumerUsingKafkaListener(CategoryRequest data) {
 		Map<String, Object> result = new HashMap<>();
 			
@@ -93,7 +93,7 @@ public class KafkaConsumerServiceImpl extends CommonService implements KafkaCons
 		categoryDaoService.saveOrUpdate(category);
 		
 		logger.error("{}{}{} SUCCESS SAVE  : {}{}{} " +category.toString());
-		result.put(KafkaConstant.returnMessage, KafkaConstant.successConsume);
+		result.put(KafkaConstant.RETURN_MESSAGE, KafkaConstant.SUCCESS_CONSUME);
 		return result;
 	}
 	
